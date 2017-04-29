@@ -4,7 +4,7 @@ Abrace CMS/Blog
 Sistema CMS/Blog desenvolvido com Symfony 3 + Doctrine 2
 Para ABRACE Esperança - Associação Brasileira de Apoio Cannabis Esperança
 
-[![Build Status](https://travis-ci.org/WeDevBrasil/abrace.svg?branch=master)](https://travis-ci.org/WeDevBrasil/abrace)
+[![Build Status](https://travis-ci.org/thiagormoreira/abrace.svg?branch=master)](https://travis-ci.org/thiagormoreira/abrace)
 
 Requirementos
 ------------

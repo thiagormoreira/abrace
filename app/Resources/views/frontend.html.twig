@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Associação Brasileira de Apoio Cannabis Esperança">
+        <meta name="author" content="WeDev Brasil">
+
+        <!-- favicon icon -->
+        <link rel="shortcut icon" href="http://demo.shapedtheme.com/kotha-pro-html/assets/images/">
+
+        <title>ABRACE Esperança - Associação Brasileira de Apoio Cannabis Esperança{% block title %}{% endblock %}</title>
+
+        <!-- common css -->
+        <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/animate.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/owl.transitions.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+
+        <!-- Dynamic Stylesheet -->
+        {% block stylesheets %}{% endblock %}
+
+        <!-- HTML5 shim and Respond.js') }} IE9 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="{{ asset('frontend/js/html5shiv.js') }}"></script>
+        <script src="{{ asset('frontend/js/respond.js') }}"></script>
+        <![endif]-->
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
+    </head>
+    <body>
+
+        {% include 'header.frontend.html.twig' %}
+
+        <!--main content start-->
+        <div class="main-content">
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <!-- end main content-->
+
+        <!--footer start-->
+        {% include 'footer.frontend.html.twig' %}
+
+        <!-- js files -->
+        <script type="text/javascript" src="{{ asset('frontend/js/jquery-1.11.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/jquery.stickit.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/menu.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/scripts.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

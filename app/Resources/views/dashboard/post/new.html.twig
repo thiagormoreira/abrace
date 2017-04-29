@@ -1,0 +1,91 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Post <small>Adicionar novo post</small></h4>
+        </div>
+    </div>
+    <!-- .row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                {{ form_widget(form.title, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Título do post'
+                    }
+                }) }}<br />
+                {{ form_widget(form.text, {
+                    'attr': {
+                        'class': 'summernote form-control'
+                    }
+                }) }}
+
+                <div class="form-group">
+                    {{ form_label(form.category, null, {
+                        'label': 'Categoria',
+                        'label_attr': {
+                            'class': 'control-label'
+                        }
+                    }) }}
+                    <div class="">
+                        {{ form_widget(form.category, {
+                            'attr': {
+                                'class': 'form-control',
+                                'placeholder': 'Conteúdo do post'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <ul class="list-inline pull-right">
+                    <li>
+                        <a href="{{ path('post_index') }}">Voltar</a>
+                    </li>
+                    <li>
+                        <input type="submit" class="btn btn-primary"
+                               value="Adicionar" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    <!-- summernotes CSS -->
+    <link href="{{ asset('dashboard/plugins/bower_components/summernote/dist/summernote.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Custom Theme JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <script src="{{ asset('dashboard/plugins/bower_components/summernote/dist/summernote.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function() {
+
+            $('.summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false // set focus to editable area after initializing summernote
+            });
+
+            $('.inline-editor').summernote({
+                airMode: true
+            });
+
+        });
+
+        window.edit = function() {
+            $(".click2edit").summernote()
+        },
+            window.save = function() {
+                $(".click2edit").destroy()
+            }
+    </script>
+{% endblock %}

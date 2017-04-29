@@ -1,24 +1,21 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("dashboard/", name="dashboard")
      */
     public function indexAction(Request $request)
     {
-        /*
         // replace this example code with whatever you need
-        return $this->render('frontend/default/index.html.twig', [
+        return $this->render('dashboard/default/index.html.twig', [
             'base_dir' => dirname($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
-        */
-        return $this->render('frontend/default/index.html.twig');
     }
 }

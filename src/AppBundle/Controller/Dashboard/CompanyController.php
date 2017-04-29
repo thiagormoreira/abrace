@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 use AppBundle\Entity\Address;
 use AppBundle\Entity\Company;

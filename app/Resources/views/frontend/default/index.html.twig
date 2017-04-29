@@ -9,9 +9,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="post-thumb">
-                                <a href="#"><img src="{{ asset('frontend/images/blog-grid.jpg') }}" alt="" class="pull-left"></a>
+                                <a href="{{
+                                path('post_view',
+                                { 'id': post.id }) }}"><img src="{{ asset('frontend/images/blog-grid.jpg') }}" alt="" class="pull-left"></a>
 
-                                <a href="blog.html" class="post-thumb-overlay text-center">
+                                <a href="{{
+                                path('post_view',
+                                { 'id': post.id }) }}" class="post-thumb-overlay text-center">
                                     <div class="text-uppercase text-center">Ver Post</div>
                                 </a>
                             </div>
@@ -21,7 +25,9 @@
                                 <header class="entry-header text-uppercase">
                                     <h6><a href="#"> {% for category in post.category %}{{ category.name }}{% endfor %}</a></h6>
 
-                                    <h1 class="entry-title"><a href="#">{{ post.title }}</a></h1>
+                                    <h1 class="entry-title"><a href="{{
+                                        path('post_view',
+                                        { 'id': post.id }) }}">{{ post.title }}</a></h1>
                                 </header>
                                 <div class="entry-content">
                                     <p>{{ post.text | truncate(200) | raw }}

@@ -22,7 +22,7 @@ matrix:
 
 # Define an environment variable
 env:
-  - SYMFONY_VERSION="3.0.*" DATABASE_URL=mysql://root:@127.0.0.1/cms_db__test
+  - SYMFONY_VERSION="3.0.*" CLEARDB_DATABASE_URL=mysql://root:@127.0.0.1/cms_db__test
 
 # Update composer
 before-install:

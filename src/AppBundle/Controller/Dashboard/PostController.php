@@ -21,14 +21,22 @@ class PostController extends Controller
      * @Route("/", name="post_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
-
+    
+        $dql   = 'SELECT a FROM AppBundle:Post a';
+        $query = $em->createQuery($dql);
+    
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+    
         return $this->render('dashboard/post/index.html.twig', array(
-            'posts' => $posts,
+            'pagination' => $pagination
         ));
     }
 
@@ -46,10 +54,17 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $now = new \DateTime("now");
+            $post->setCreateDate($now);
             $em->persist($post);
             $em->flush();
+    
+            $this->addFlash(
+                'notice',
+                'Novo post adicionado com sucesso!'
+            );
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('post_index');
         }
 
         return $this->render('dashboard/post/new.html.twig', array(
@@ -88,8 +103,14 @@ class PostController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('post_edit', array('id' => $post->getId()));
+    
+            $this->addFlash(
+                'notice',
+                'Post editado com sucesso!'
+            );
+    
+    
+            return $this->redirectToRoute('post_index');
         }
 
         return $this->render('dashboard/post/edit.html.twig', array(

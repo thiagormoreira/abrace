@@ -9,6 +9,17 @@
     <!-- .row -->
     <div class="row">
         <div class="col-sm-12">
+
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="flash-notice ">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-check"></i> Sucesso!</h4>
+                        {{ flash_message }}
+                    </div>
+                </div>
+            {% endfor %}
+
             <div class="white-box">
                 <h3 class="box-title">Todos os Posts
                     <div class="pull-right">
@@ -24,15 +35,16 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Título</th>
+                                {# sorting of properties based on query components #}
+                                <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                                <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Título', 'a.title') }}</th>
                                 <th>Categoria</th>
                                 <th>Tags</th>
-                                <th>Opções</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for post in posts %}
+                            {% for post in pagination %}
                             <tr>
                                 <td>
                                     <a href="{{ path('post_show',
@@ -41,25 +53,55 @@
                                     </a>
                                 </td>
                                 <td>{{ post.title }}</td>
-                                <td>{% for category in post.category %}{{ category.name }}{% endfor %}</td>
-                                <td><span class="label label-danger">tags</span></td>
+                                <td>{{ post.category }}</td>
+                                <td>
+                                    {% for tag in post.tag %}
+                                     <span class="label label-danger"> {{ tag.name }}</span>
+                                    {% endfor %}
+                                </td>
                                 <td>
                                     <ul class="list-inline pull-right">
+                                        <li>
+                                            {% if post.status == '0' %}
+                                            <a href="#">
+                                                <button type="button"
+                                                        class="btn btn-block btn-danger btn-xs">
+                                                    Rascunho
+                                                </button>
+                                            </a>
+                                            {% elseif post.status == '1' %}
+                                            <a href="#">
+                                                <button type="button"
+                                                        class="btn btn-block btn-success btn-xs">
+                                                    Publicado
+                                                </button>
+                                            </a>
+                                            {% elseif post.status == '2' %}
+                                            <a href="#">
+                                                <button type="button"
+                                                        class="btn btn-block btn-warning btn-xs">
+                                                    Arquivado
+                                                </button>
+                                            </a>
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            <a href="{{
+                                            path('post_view',
+                                            { 'id': post.id }) }}" target="_blank">
+                                                <button type="button"
+                                                        class="btn btn-block btn-info btn-sm">
+                                                    Ver
+                                                </button>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="{{
                                             path('post_edit',
                                             { 'id': post.id }) }}">
                                                 <button type="button"
-                                                        class="btn btn-block btn-primary btn-sm">
+                                                        class="btn btn-block btn-default btn-sm">
                                                     Editar
-                                                </button>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <button type="button"
-                                                        class="btn btn-block btn-info btn-sm">
-                                                    Ver
                                                 </button>
                                             </a>
                                         </li>
@@ -71,6 +113,14 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- .row -->
+    <div class="row">
+        {# display navigation #}
+        <div class="col-sm-12">
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
     <!-- /.row -->

@@ -34,13 +34,6 @@ class Category
      * @ORM\Column(name="description", type="text", nullable=false)
      */
     private $description;
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="category")
-     */
-    private $post;
 
     /**
      * Constructor

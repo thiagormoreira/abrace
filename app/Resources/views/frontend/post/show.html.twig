@@ -19,13 +19,13 @@
                         {{ post.text | raw }}
                     </div>
                     <div class="decoration">
-                        <a href="#" class="btn btn-default">Decoration</a>
-                        <a href="#" class="btn btn-default">Decoration</a>
+                        {% for tag in post.tag %}
+                            <a href="#" class="btn btn-default">{{ tag.name }}</a>
+                        {% endfor %}
                     </div>
 
                     <div class="social-share">
-							<span
-                                    class="social-share-title pull-left text-capitalize">By Rubel On February 12, 2016</span>
+							<span class="social-share-title pull-left text-capitalize">Por Admin em {{ post.createDate|date("F d \\, Y") }}</span>
                         <ul class="text-center pull-right">
                             <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>

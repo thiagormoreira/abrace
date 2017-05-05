@@ -33,19 +33,48 @@ class Post
     private $text;
     
     /**
+     * @var datetime $createDate
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createDate;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="feature_image", type="blob", nullable=true)
+     */
+    private $featureImage;
+    
+    /**
+     * @var \Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $category;
+    
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="post")
-     * @ORM\JoinTable(name="post_has_category",
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="post_has_tag",
      *   joinColumns={
      *     @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      *   }
      * )
      */
-    private $category;
+    private $tag;
+    
+    /**
+     * @var integer
+     * @ORM\Column(name="status", type="smallint", nullable=false)
+     */
+    private $status;
     
     /**
      * Constructor
@@ -90,6 +119,54 @@ class Post
     }
     
     /**
+     * Set createDate
+     *
+     * @param datetime $createDate
+     *
+     * @return Post
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+        
+        return $this;
+    }
+    
+    /**
+     * Get createDate
+     *
+     * @return datetime
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+    
+    /**
+     * Set featureImage
+     *
+     * @param string $featureImage
+     *
+     * @return Post
+     */
+    public function setFeatureImage($featureImage)
+    {
+        $this->featureImage = $featureImage;
+        
+        return $this;
+    }
+    
+    /**
+     * Get featureImage
+     *
+     * @return string
+     */
+    public function getFeatureImage()
+    {
+        return $this->featureImage;
+    }
+    
+    /**
      * Set text
      *
      * @param string $text
@@ -112,38 +189,87 @@ class Post
     {
         return $this->text;
     }
+    
     /**
-     * Add category
+     * Set category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param \AppBundle\Entity\Category $ category
      *
-     * @return Post
+     * @return Category
      */
-    public function addCategory(\AppBundle\Entity\Category $category)
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
-        $this->category[] = $category;
+        $this->category = $category;
         
         return $this;
     }
     
     /**
-     * Remove category
-     *
-     * @param \AppBundle\Entity\Category $category
-     */
-    public function removeCategory(\AppBundle\Entity\Category $category)
-    {
-        $this->category->removeElement($category);
-    }
-    
-    /**
      * Get category
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Category
      */
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Advertisement
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tag[] = $tag;
+        
+        return $this;
+    }
+    
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tag->removeElement($tag);
+    }
+    
+    /**
+     * Get tag
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+    
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Post
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        
+        return $this;
+    }
+    
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
     
     public function __toString() {

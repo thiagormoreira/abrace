@@ -7,3 +7,16 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+    # Uploader Service
+    app.image_uploader:
+        class: AppBundle\FileUploader
+        arguments: ['%upload_directory%']
+
+    # Doctrine FeatureImage Upload listener
+    app.doctrine_feature_image_listener:
+            class: AppBundle\EventListener\FeatureImageUploadListener
+            arguments: ['@app.image_uploader']
+            tags:
+                - { name: doctrine.event_listener, event: prePersist }
+                - { name: doctrine.event_listener, event: preUpdate }

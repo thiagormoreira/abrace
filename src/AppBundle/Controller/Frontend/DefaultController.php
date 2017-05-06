@@ -15,10 +15,18 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
     
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $dql   = 'SELECT a FROM AppBundle:Post a WHERE a.status=1 ORDER BY a.createDate DESC';
+        $query = $em->createQuery($dql);
+    
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
     
         return $this->render('frontend/default/index.html.twig', array(
-            'posts' => $posts,
+            'pagination' => $pagination
         ));
     }
 }

@@ -75,7 +75,7 @@
                         <label for="input-file-now">Selecione a imagem de destaque do post</label>
                         {{ form_widget(edit_form.featureImage, {
                             'attr': {
-                                'class': 'dropify-pt'
+                                'class': 'dropify-pt',
                             }
                         }) }}
                     </div>
@@ -170,9 +170,6 @@
     <script src="{{ asset('dashboard/plugins/bower_components/dropify/dist/js/dropify.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // Basic
-            $('.dropify').dropify();
-
             // Translated
             $('.dropify-pt').dropify({
                 messages: {

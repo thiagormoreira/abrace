@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,10 +18,13 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('featureImage')
+            ->add('featureImage', FileType::class, array('data_class' => null, 'required' => false))
             ->add('text')
             ->add('category')
             ->add('tag')
+            /*->add('tag', CollectionType::class, array(
+                'entry_type'   => TagType::class
+            ))*/
             ->add('status', ChoiceType::class, array(
                 'choices' => array(
                     'Rascunho' => 0,

@@ -3,15 +3,20 @@
 {% block body %}
     <div class="row">
         <div class="col-md-8">
-
-            {% for post in posts %}
+            {% for post in pagination %}
                 <article class="post post-list">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="post-thumb">
                                 <a href="{{
                                 path('post_view',
-                                { 'id': post.id }) }}"><img src="{{ asset('frontend/images/blog-grid.jpg') }}" alt="" class="pull-left"></a>
+                                { 'id': post.id }) }}">
+                                    {%  if post.featureImage != '' %}
+                                    <img src="/uploads/images/{{ post.featureImage }}" alt="" class="pull-left">
+                                    {% else %}
+                                    <img src="{{ asset('frontend/images/abrace.png') }}" alt="" class="pull-left">
+                                    {% endif %}
+                                </a>
 
                                 <a href="{{
                                 path('post_view',
@@ -20,7 +25,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="post-content">
                                 <header class="entry-header text-uppercase">
                                     <h6><a href="#"> {% for category in post.category %}{{ category.name }}{% endfor %}</a></h6>
@@ -30,28 +35,29 @@
                                         { 'id': post.id }) }}">{{ post.title }}</a></h1>
                                 </header>
                                 <div class="entry-content">
-                                    <p>{{ post.text | truncate(200) | raw }}
-                                    </p>
+                                    {{ post.text | truncate(100) | raw }}
                                 </div>
                                 <div class="social-share">
-                                    <span class="social-share-title pull-left text-capitalize">Por Admin em {{ post.createDate|date("d \\d\\e F \\, Y") }}</span>
-
+                                    <a href="{{
+                                    path('post_view',
+                                    { 'id': post.id }) }}"
+                                       class="pull-right text-capitalize">
+                                        <span>Continue...</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
             {% endfor %}
-
-
-            <ul class="pagination">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-            </ul>
+            {{ knp_pagination_render(pagination) }}
         </div>
         {{ include('sidebar.frontend.html.twig') }}
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
 {% endblock %}

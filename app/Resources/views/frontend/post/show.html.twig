@@ -4,9 +4,11 @@
     <div class="row">
         <div class="col-md-8">
             <article class="post">
+                {%  if post.featureImage != '' %}
                 <div class="post-thumb">
-                    <a href="#"><img src="{{ asset('frontend/images/blog-1.jpg') }}" alt=""></a>
+                    <img src="/uploads/images/{{ post.featureImage }}" alt="">
                 </div>
+                {% endif %}
                 <div class="post-content">
                     <header class="entry-header text-center text-uppercase">
                         <h6><a href="#">{% for category in post.category %}{{ category.name }}{% endfor %}</a></h6>
@@ -25,7 +27,7 @@
                     </div>
 
                     <div class="social-share">
-							<span class="social-share-title pull-left text-capitalize">Por Admin em {{ post.createDate|date("F d \\, Y") }}</span>
+                        <span class="social-share-title pull-left text-capitalize">Por Admin em {{ post.createDate|date("F d \\, Y") }}</span>
                         <ul class="text-center pull-right">
                             <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>

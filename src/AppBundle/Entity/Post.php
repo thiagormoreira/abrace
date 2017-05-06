@@ -41,7 +41,7 @@ class Post
     
     /**
      * @var string
-     * @ORM\Column(name="feature_image", type="blob", nullable=true)
+     * @ORM\Column(name="feature_image", type="string", nullable=true)
      */
     private $featureImage;
     
@@ -81,6 +81,7 @@ class Post
      */
     public function __construct()
     {
+        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     

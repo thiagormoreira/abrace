@@ -6,6 +6,7 @@ use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -25,7 +26,7 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
     
-        $dql   = 'SELECT a FROM AppBundle:Post a';
+        $dql   = 'SELECT a FROM AppBundle:Post a ORDER BY a.id DESC';
         $query = $em->createQuery($dql);
     
         $paginator  = $this->get('knp_paginator');
@@ -112,11 +113,21 @@ class PostController extends Controller
     
             return $this->redirectToRoute('post_index');
         }
-
+    
+        if($post->getFeatureImage() != '') {
+            $post->setFeatureImage(
+                new File($this->getParameter('upload_directory') . '/' . $post->getFeatureImage())
+            );
+            //$featureImage = '/uploads/images/' . $post->getFeatureImage();
+        } else {
+            //$featureImage = '';
+        }
+        
         return $this->render('dashboard/post/edit.html.twig', array(
             'post' => $post,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            //'featureImage' => $featureImage,
         ));
     }
 

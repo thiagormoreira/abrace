@@ -1,31 +1,18 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block body %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Categoria
-            <small>ver</small>
-        </h1>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Categoria <small>Ver categoria</small></h4>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
         <div class="col-md-8">
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <ul class="list-inline pull-left">
-                        <li>
-                            <a href="{{ path('category_index') }}">
-                                <button type="button"
-                                        class="btn btn-block btn-info btn-sm">
-                                    <i class="fa fa-arrow-left"></i>
-                                </button>
-                            </a>
-                        </li>
-                    </ul>
-                    <h3 class="box-title">Ver Categoria</h3>
+                    <h3 class="box-title">Title</h3>
                 </div>
                 <div class="box-body">
                     <div id="wrapper">
@@ -40,13 +27,24 @@
                                     <th><span class="pull-right">Nome</span></th>
                                     <td>{{ category.name }}</td>
                                 </tr>
+                                <tr>
+                                    <th><span class="pull-right">Descriçao</span></th>
+                                    <td>{{ category.description }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer">
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="white-box">
+                <div class="form-group">
                     <ul class="list-inline pull-right">
                         <li>
                             <a href="{{ path('category_index') }}">Voltar</a>
@@ -67,10 +65,15 @@
                         </li>
                     </ul>
                 </div>
-                <!-- /.box-footer-->
             </div>
-            <!-- /.box -->
         </div>
-    </section>
+        <!-- /.box-footer-->
+    </div>
     <!-- /.content -->
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+
+    </style>
 {% endblock %}

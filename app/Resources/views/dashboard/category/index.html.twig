@@ -1,107 +1,87 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block body %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Categorias
-            <small>lista de todas as categorias cadastradas</small>
-        </h1>
-    </section>
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Categoria <small>Lista de todos as categorias</small></h4>
+        </div>
+    </div>
+    <!-- .row -->
+    <div class="row">
+        <div class="col-sm-12">
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="col-md-8">
-            <!-- Default box -->
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"> </h3>
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="flash-notice ">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-check"></i> Sucesso!</h4>
+                        {{ flash_message }}
+                    </div>
+                </div>
+            {% endfor %}
 
+            <div class="white-box">
+                <h3 class="box-title">Todos as Categorias
                     <div class="pull-right">
                         <a href="{{ path('category_new') }}">
                             <button type="button"
-                                    class="btn btn-block btn-primary">
-                                Adicionar
+                                    class="btn btn-primary">
+                                Nova Categoria
                             </button>
                         </a>
                     </div>
-                </div>
-                <div class="box-body">
-                    <div id="wrapper">
-                        <div id="container">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">Id</th>
-                                        <th>Nome</th>
-                                        <th style="width: 140px">Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for category in categories %}
-                                    <tr>
-                                        <td style="vertical-align: middle">
-                                            <a href="{{ path('category_show',
+                </h3>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            {# sorting of properties based on query components #}
+                            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                            <th{% if pagination.isSorted('a.Name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Nome', 'a.name') }}</th>
+                            <th>Descriçao</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in pagination %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('category_show',
+                                    { 'id': category.id }) }}">
+                                        {{ category.id }}
+                                    </a>
+                                </td>
+                                <td>{{ category.name }}</td>
+                                <td>{{ category.description }}</td>
+                                <td>
+                                    <ul class="list-inline pull-right">
+                                        <li>
+                                            <a href="{{
+                                            path('category_edit',
                                             { 'id': category.id }) }}">
-                                                {{ category.id }}
+                                                <button type="button"
+                                                        class="btn btn-block btn-default btn-sm">
+                                                    Editar
+                                                </button>
                                             </a>
-                                        </td>
-                                        <td style="vertical-align: middle">{{ category.name }}</td>
-                                        <td style="vertical-align: middle">
-                                            <ul class="list-inline pull-right">
-                                                <li>
-                                                    <a href="{{
-                                                        path('category_edit',
-                                                        { 'id': category.id }) }}">
-                                                        <button type="button"
-                                                                class="btn btn-block btn-primary btn-sm">
-                                                            Editar
-                                                        </button>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{
-                                                        path('category_show',
-                                                        { 'id': category.id })
-                                                    }}">
-                                                        <button type="button"
-                                                                class="btn btn-block btn-info btn-sm">
-                                                            Ver
-                                                        </button>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <ul class="pagination pagination-sm no-margin">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
-                <!-- /.box-footer-->
             </div>
         </div>
-        <!-- /.box -->
-
-    </section>
-    <!-- /.content -->
-{% endblock %}
-
-{% block stylesheets %}
-    <style>
-
-    </style>
+    </div>
+    <!-- /.row -->
+    <!-- .row -->
+    <div class="row">
+        {# display navigation #}
+        <div class="col-sm-12">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+    <!-- /.row -->
 {% endblock %}

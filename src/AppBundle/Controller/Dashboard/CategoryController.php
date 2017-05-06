@@ -21,14 +21,22 @@ class CategoryController extends Controller
      * @Route("/", name="category_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $categories = $em->getRepository('AppBundle:Category')->findAll();
-
+    
+        $dql   = 'SELECT a FROM AppBundle:Category a ORDER BY a.id DESC';
+        $query = $em->createQuery($dql);
+    
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+    
         return $this->render('dashboard/category/index.html.twig', array(
-            'categories' => $categories,
+            'pagination' => $pagination
         ));
     }
 
@@ -47,9 +55,14 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
-            $em->flush($category);
+            $em->flush();
+    
+            $this->addFlash(
+                'notice',
+                'Nova categoruia adicionada com sucesso!'
+            );
 
-            return $this->redirectToRoute('category_show', array('id' => $category->getId()));
+            return $this->redirectToRoute('category_index');
         }
 
         return $this->render('dashboard/category/new.html.twig', array(
@@ -88,8 +101,13 @@ class CategoryController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+    
+            $this->addFlash(
+                'notice',
+                'Categoria editada com sucesso!'
+            );
 
-            return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
+            return $this->redirectToRoute('category_index');
         }
 
         return $this->render('dashboard/category/edit.html.twig', array(

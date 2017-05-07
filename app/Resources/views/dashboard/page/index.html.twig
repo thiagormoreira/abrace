@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Post <small>Lista de todos os post</small></h4>
+            <h4 class="page-title">Página <small>Lista de todas as página</small></h4>
         </div>
     </div>
     <!-- .row -->
@@ -21,12 +21,12 @@
             {% endfor %}
 
             <div class="white-box">
-                <h3 class="box-title">Todos os Posts
+                <h3 class="box-title">Todos os Páginas
                     <div class="pull-right">
-                        <a href="{{ path('post_new') }}">
+                        <a href="{{ path('page_new') }}">
                             <button type="button"
                                     class="btn btn-primary">
-                                Novo Post
+                                Nova Página
                             </button>
                         </a>
                     </div>
@@ -38,45 +38,43 @@
                                 {# sorting of properties based on query components #}
                                 <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
                                 <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Título', 'a.title') }}</th>
-                                <th>Categoria</th>
                                 <th>Tags</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for post in pagination %}
+                            {% for page in pagination %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('post_show',
-                                    { 'id': post.id }) }}">
-                                        {{ post.id }}
+                                    <a href="{{ path('page_show',
+                                    { 'id': page.id }) }}">
+                                        {{ page.id }}
                                     </a>
                                 </td>
-                                <td>{{ post.title }}</td>
-                                <td>{{ post.category }}</td>
+                                <td>{{ page.title }}</td>
                                 <td>
-                                    {% for tag in post.tag %}
+                                    {% for tag in page.tag %}
                                      <span class="label label-danger"> {{ tag.name }}</span>
                                     {% endfor %}
                                 </td>
                                 <td>
                                     <ul class="list-inline pull-right">
                                         <li>
-                                            {% if post.status == '0' %}
+                                            {% if page.status == '0' %}
                                             <a href="#">
                                                 <button type="button"
                                                         class="btn btn-block btn-danger btn-xs">
                                                     Rascunho
                                                 </button>
                                             </a>
-                                            {% elseif post.status == '1' %}
+                                            {% elseif page.status == '1' %}
                                             <a href="#">
                                                 <button type="button"
                                                         class="btn btn-block btn-success btn-xs">
                                                     Publicado
                                                 </button>
                                             </a>
-                                            {% elseif post.status == '2' %}
+                                            {% elseif page.status == '2' %}
                                             <a href="#">
                                                 <button type="button"
                                                         class="btn btn-block btn-warning btn-xs">
@@ -87,8 +85,8 @@
                                         </li>
                                         <li>
                                             <a href="{{
-                                            path('post_view',
-                                            { 'title': post.title }) }}" target="_blank">
+                                            path('page_view',
+                                            { 'title': page.title }) }}" target="_blank">
                                                 <button type="button"
                                                         class="btn btn-block btn-info btn-sm">
                                                     Ver
@@ -97,8 +95,8 @@
                                         </li>
                                         <li>
                                             <a href="{{
-                                            path('post_edit',
-                                            { 'id': post.id }) }}">
+                                            path('page_edit',
+                                            { 'id': page.id }) }}">
                                                 <button type="button"
                                                         class="btn btn-block btn-default btn-sm">
                                                     Editar

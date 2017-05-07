@@ -50,7 +50,7 @@ class Post
      *
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $category;
@@ -75,6 +75,16 @@ class Post
      * @ORM\Column(name="status", type="smallint", nullable=false)
      */
     private $status;
+    
+    /**
+     * @var \PostType
+     *
+     * @ORM\ManyToOne(targetEntity="PostType")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="post_type_id", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $postType;
     
     /**
      * Constructor
@@ -271,6 +281,30 @@ class Post
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    /**
+     * Set postType
+     *
+     * @param \AppBundle\Entity\PostType $postType
+     *
+     * @return Post
+     */
+    public function setPostType(\AppBundle\Entity\PostType $postType = null)
+    {
+        $this->postType = $postType;
+        
+        return $this;
+    }
+    
+    /**
+     * Get postType
+     *
+     * @return \AppBundle\Entity\PostType
+     */
+    public function getPostType()
+    {
+        return $this->postType;
     }
     
     public function __toString() {

@@ -62,6 +62,9 @@
                         }) }}
                     </div>
                     <span class="social-share-title pull-right">Criado por Admin em {{ post.createDate|date("F d \\, Y \\a\\s g:i") }}</span>
+                    {% if post.editDate != '' %}
+                    <small class="social-share-title pull-right">Editado por Admin em {{ post.editDate|date("F d \\, Y \\a\\s g:i") }}</small>
+                    {% endif %}
                 </div>
             </div>
         </div>

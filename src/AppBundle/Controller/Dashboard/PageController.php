@@ -109,6 +109,9 @@ class PageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+    
+            $page->setEditDate(new \DateTime("now"));
+            
             $this->getDoctrine()->getManager()->flush();
     
             $this->addFlash(

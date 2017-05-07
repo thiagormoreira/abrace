@@ -40,6 +40,13 @@ class Post
     private $createDate;
     
     /**
+     * @var datetime $editDate
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $editDate;
+    
+    /**
      * @var string
      * @ORM\Column(name="feature_image", type="string", nullable=true)
      */
@@ -151,6 +158,30 @@ class Post
     public function getCreateDate()
     {
         return $this->createDate;
+    }
+    
+    /**
+     * Set editDate
+     *
+     * @param datetime $editDate
+     *
+     * @return Post
+     */
+    public function setEditDate($editDate)
+    {
+        $this->editDate = $editDate;
+        
+        return $this;
+    }
+    
+    /**
+     * Get editDate
+     *
+     * @return datetime
+     */
+    public function getEditDate()
+    {
+        return $this->editDate;
     }
     
     /**

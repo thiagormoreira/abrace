@@ -108,8 +108,11 @@ class PostController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
     
+            $post->setEditDate(new \DateTime("now"));
+            
+            $this->getDoctrine()->getManager()->flush();
+            
             $this->addFlash(
                 'notice',
                 'Post editado com sucesso!'

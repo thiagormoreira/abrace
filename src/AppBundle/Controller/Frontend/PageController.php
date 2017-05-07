@@ -11,20 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Post controller.
  *
- * @Route("post")
+ * @Route("/")
  */
-class PostController extends Controller
+class PageController extends Controller
 {
     /**
-     * Finds and displays a post entity.
+     * Finds and displays a page entity.
      *
-     * @Route("/{id}", name="post_view")
+     * @Route("/{title}", name="page_view")
      * @Method("GET")
      */
-    public function showAction(Post $post)
+    public function showAction(Post $page)
     {
-        return $this->render('frontend/post/show.html.twig', array(
-            'post' => $post,
+        return $this->render('frontend/page/show.html.twig', array(
+            'page' => $page,
         ));
     }
 }

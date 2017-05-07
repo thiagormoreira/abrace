@@ -1,0 +1,44 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <article class="post">
+                {%  if page.featureImage != '' %}
+                <!-- div class="page-thumb">
+                    <img src="/uploads/images/{{ page.featureImage }}" alt="">
+                </div -->
+                {% endif %}
+                <div class="post-content">
+                    <header class="entry-header text-center text-uppercase">
+                        <h6><a href="#">{% for category in page.category %}{{ category.name }}{% endfor %}</a></h6>
+
+                        <h1 class="entry-title"><a href="#">{{ page.title }}</a></h1>
+
+
+                    </header>
+                    <div class="entry-content">
+                        {{ page.text | raw }}
+                    </div>
+                    <div class="decoration">
+                        {% for tag in page.tag %}
+                            <a href="#" class="btn btn-default">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="social-share">
+                        <ul class="text-center pull-right">
+                            <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a class="s-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a class="s-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a class="s-instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+        {% include('sidebar.frontend.html.twig') %}
+    </div>
+    <!-- end main content-->
+{% endblock %}

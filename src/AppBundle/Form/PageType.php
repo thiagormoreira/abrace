@@ -4,11 +4,10 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class PageType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,13 +16,8 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('featureImage', FileType::class, array('data_class' => null, 'required' => false))
             ->add('text')
-            ->add('category', null, array('required' => true))
             ->add('tag')
-            /*->add('tag', CollectionType::class, array(
-                'entry_type'   => TagType::class
-            ))*/
             ->add('status', ChoiceType::class, array(
                 'choices' => array(
                     'Rascunho' => 0,
@@ -34,7 +28,8 @@ class PostType extends AbstractType
                     // adds a class like attending_yes, attending_no, etc
                     return ['class' => 'status_'.strtolower($key)];
                 },
-            ));;
+            ))
+            ;
     }
     
     /**

@@ -57,14 +57,20 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{ url('post_new') }}" class="waves-effect">
+                        <a href="{{ url('page_new') }}" class="waves-effect">
                             Adicionar
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('post_index') }}" class="waves-effect">
+                        <a href="{{ url('page_index') }}" class="waves-effect">
                             Todos
                         </a>
+                    </li>
+                    <li> <a href="javascript:void(0)" class="waves-effect">Tags <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li> <a href="{{ url('tag_new') }}">Adicionar</a> </li>
+                            <li> <a href="{{ url('tag_index') }}">Todas</a> </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

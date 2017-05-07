@@ -5,7 +5,8 @@ namespace AppBundle\Controller\Dashboard;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
@@ -20,14 +21,22 @@ class UserController extends Controller
      * @Route("/", name="user_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $users = $em->getRepository('AppBundle:User')->findAll();
+    
+        $dql   = 'SELECT a FROM AppBundle:User a ORDER BY a.id DESC';
+        $query = $em->createQuery($dql);
+    
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('dashboard/user/index.html.twig', array(
-            'users' => $users,
+            'pagination' => $pagination
         ));
     }
 
@@ -45,10 +54,18 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+    
+            $user->setCreateDate(new \DateTime("now"));
+            
             $em->persist($user);
-            $em->flush($user);
+            $em->flush();
+    
+            $this->addFlash(
+                'notice',
+                'Novo usuario cadastrado com sucesso!'
+            );
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('dashboard/user/new.html.twig', array(
@@ -86,9 +103,17 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+    
+            $user->setEditDate(new \DateTime("now"));
+    
             $this->getDoctrine()->getManager()->flush();
+    
+            $this->addFlash(
+                'notice',
+                'Usuario editado com sucesso!'
+            );
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('dashboard/user/edit.html.twig', array(

@@ -18,6 +18,12 @@ class LoadUserTypeData implements FixtureInterface
         $manager->flush();
     
         $userType = new UserType();
+        $userType->setName('Editor');
+    
+        $manager->persist($userType);
+        $manager->flush();
+    
+        $userType = new UserType();
         $userType->setName('Usuario');
     
         $manager->persist($userType);

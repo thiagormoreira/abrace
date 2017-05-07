@@ -33,10 +33,24 @@ class User
      *
      * @ORM\ManyToOne(targetEntity="UserType")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_type_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="user_type_id", referencedColumnName="id", nullable=false)
      * })
      */
     private $userType;
+    
+    /**
+     * @var datetime $createDate
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createDate;
+    
+    /**
+     * @var datetime $editDate
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $editDate;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -134,6 +148,54 @@ class User
     public function getUserType()
     {
         return $this->userType;
+    }
+    
+    /**
+     * Set createDate
+     *
+     * @param datetime $createDate
+     *
+     * @return User
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+        
+        return $this;
+    }
+    
+    /**
+     * Get createDate
+     *
+     * @return datetime
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+    
+    /**
+     * Set editDate
+     *
+     * @param datetime $editDate
+     *
+     * @return User
+     */
+    public function setEditDate($editDate)
+    {
+        $this->editDate = $editDate;
+        
+        return $this;
+    }
+    
+    /**
+     * Get editDate
+     *
+     * @return datetime
+     */
+    public function getEditDate()
+    {
+        return $this->editDate;
     }
 
     /**

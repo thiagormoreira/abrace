@@ -47,9 +47,9 @@
                             }
                         }) }}
                     </div>
-                    <span class="social-share-title pull-right">Criado por Admin em {{ page.createDate|date("F d \\, Y \\a\\s g:i") }}</span>
+                    <span class="social-share-title pull-right">Criado por {{ page.user.name }} em {{ page.createDate|date("F d \\, Y \\a\\s g:i") }}</span>
                     {% if page.editDate != '' %}
-                    <small class="social-share-title pull-right">Editado por Admin em {{ page.editDate|date("F d \\, Y \\a\\s g:i") }}</small>
+                    <small class="social-share-title pull-right">Editado por & {user} em {{ page.editDate|date("F d \\, Y \\a\\s g:i") }}</small>
                     {% endif %}
                 </div>
             </div>

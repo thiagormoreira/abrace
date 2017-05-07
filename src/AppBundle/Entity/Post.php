@@ -63,6 +63,16 @@ class Post
     private $category;
     
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $user;
+    
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Tag")
@@ -254,6 +264,30 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $ user
+     *
+     * @return Post
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+        
+        return $this;
+    }
+    
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
     
     /**

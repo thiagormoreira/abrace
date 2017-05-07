@@ -55,8 +55,8 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $now = new \DateTime("now");
-            $post->setCreateDate($now);
+            
+            $post->setCreateDate(new \DateTime("now"));
     
             $post->setPostType(
                 $em->getRepository('AppBundle:PostType')->find(1)
